@@ -7,6 +7,10 @@
 
         <div>Slug: {{ $post->slug }} </div>
 
+        @if ($post_category)
+            <div>Category: {{ $post_category->name }} </div> 
+        @endif
+
         <p> {{$post->content}} </p>
 
         <a href=" {{ route('admin.posts.edit', ['post' => $post->id])}} " class="btn btn-success">Modifica post</a>
