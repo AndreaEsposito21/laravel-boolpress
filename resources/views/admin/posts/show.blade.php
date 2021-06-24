@@ -11,6 +11,13 @@
             <div>Category: {{ $post_category->name }} </div> 
         @endif
 
+        <div>
+            Tag:
+            @foreach ($post_tags as $tag)
+                {{ $tag->name }}{{ $loop->last ? '.' : ', '}}
+            @endforeach
+        </div>
+
         <p> {{$post->content}} </p>
 
         <a href=" {{ route('admin.posts.edit', ['post' => $post->id])}} " class="btn btn-success">Modifica post</a>

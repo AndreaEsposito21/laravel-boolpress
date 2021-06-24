@@ -6,9 +6,8 @@
         <h1>{{$post->title}}</h1>
 
         <div class="mt-2 mb-2">
-            <h2>Categoria:</h2>
             @if ($post_category)
-                <div>{{$post->category->name}}</div>
+                <h2>Categoria: {{$post->category->name}}</h2>
             @endif
         </div>
 

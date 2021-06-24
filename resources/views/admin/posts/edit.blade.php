@@ -40,6 +40,18 @@
                 </select>
             </div>
 
+            <div class="form-group">
+                <div>Tag</div>
+                @foreach ($tags as $tag)
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" name="tags[]" type="checkbox" id="tag-{{ $tag->id }}" value="{{ $tag->id }}">
+                        <label class="form-check-label" for="tag-{{ $tag->id }}">
+                            {{ $tag->name }}
+                        </label>
+                    </div>
+                @endforeach
+            </div>
+
             <input type="submit" value="Salva" class="btn btn-success">
         </form>
     </div>
