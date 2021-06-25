@@ -31,4 +31,8 @@ class PostController extends Controller
 
         return view('guest.posts.show', $data);
     }
+
+    public function vuePost() {
+        return view('guest.posts.vue-posts');
+    }
 }
