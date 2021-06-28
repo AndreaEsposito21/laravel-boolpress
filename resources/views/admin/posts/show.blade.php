@@ -5,6 +5,12 @@
     <div class="container">
         <h1>{{ $post->title }}</h1>
 
+        @if ($post->cover)
+            <div>
+                <img src=" {{ asset('storage/' . $post->cover) }} " alt="{{ $post->title }}">
+            </div>
+        @endif
+
         <div>Slug: {{ $post->slug }} </div>
 
         @if ($post_category)
