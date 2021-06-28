@@ -9,6 +9,9 @@ use App\Category;
 use App\Tag;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use App\Mail\SendNewMail;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\NewPostAdminNotification;
 
 class PostController extends Controller
 {
@@ -59,8 +62,8 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'content' => 'required|max:65000',
             'category_id' => 'nullable|exists:categories,id',
-            'tags' => 'nullable|exists:tags,id',
-            'cover-image' => 'nullable|image|max:10000'
+            'tags' => 'nullable|exists:tags,id'
+            // 'cover-image' => 'nullable|image|max:100000'
         ]);
 
         $new_post_data = $request->all();
@@ -93,6 +96,8 @@ class PostController extends Controller
         if (isset($new_post_data['tags'])) {
             $new_post->tags()->sync($new_post_data['tags']);
         }
+
+        Mail::to('andrea@gmail.com')->send(new NewPostAdminNotification($new_post));
 
         return redirect()->route('admin.posts.show', ['post' => $new_post->id]);
     }
@@ -150,8 +155,8 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'content' => 'required|max:65000',
             'category_id' => 'nullable|exists:categories,id',
-            'tags' => 'nullable|exists:tags,id',
-            'cover-image' => 'nullable|image|max:10000'
+            'tags' => 'nullable|exists:tags,id'
+            // 'cover-image' => 'nullable|image|max:100000'
         ]);
         
         $mod_post_data = $request->all();
@@ -197,6 +202,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
+        $post->tags()->sync([]);
         $post->delete();
 
         return redirect()->route('admin.posts.index');
